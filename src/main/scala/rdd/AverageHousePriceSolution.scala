@@ -14,6 +14,7 @@ object AverageHousePriceSolution {
       .appName("AverageHousePriceSolution")
       .master("local[2]")
       .getOrCreate()
+
     val df = spark
       .read
       .format("csv")
@@ -33,7 +34,7 @@ object AverageHousePriceSolution {
     retDf.show(false)
 
     tmpDf.createOrReplaceTempView("myTable")
-    val retDf2 = spark.sql("select Bedrooms, avg(Price) from myTable order by Bedrooms desc")
+    val retDf2 = spark.sql("select Bedrooms, avg(Price) from myTable group by Bedrooms order by Bedrooms desc")
     retDf2.show(false)
 
   }
