@@ -1,15 +1,14 @@
-package rdd.nasaApacheWebLogs
+package com.soumya.df
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.log4j.Level
-import org.apache.log4j.Logger
 
 object SameHostsSolution {
 
   Logger.getLogger("org").setLevel(Level.ERROR)
 
-  def loadCsv(filewithPath: String)(implicit spark: SparkSession) : DataFrame ={
+  def loadCsv(filewithPath: String)(implicit spark: SparkSession): DataFrame = {
     spark
       .read
       .format("csv")
@@ -30,9 +29,6 @@ object SameHostsSolution {
     val df2 = loadCsv("in/nasa_19950801.tsv").select(col("host"))
 
     val resultDF = df1.intersect(df2).repartition(2)
-
-    print(resultDF.rdd.partitions.length)
-
 
     resultDF
       .write

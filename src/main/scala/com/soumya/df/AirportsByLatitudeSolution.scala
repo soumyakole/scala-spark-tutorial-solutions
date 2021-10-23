@@ -1,10 +1,12 @@
-package rdd.airports
+package com.soumya.df
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types.DecimalType
 
 object AirportsByLatitudeSolution {
+  Logger.getLogger("org").setLevel(Level.ERROR)
 
   def main(args: Array[String]): Unit = {
 
